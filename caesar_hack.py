@@ -9,9 +9,10 @@ class caesar_hack:
         assert type(code) == str
         assert type(alphabet) == str
         assert type(many_char) == str
-        self.code = code
-        self.alphabet = alphabet
-        self.many_char = list(many_char)
+        assert len(alphabet) == len(many_char)
+        self.code = code.lower()
+        self.alphabet = alphabet.lower()
+        self.many_char = list(many_char.lower())
         self.sort_counts = []
         self.letters = []
         self.finished = []
@@ -46,13 +47,13 @@ class caesar_hack:
     def keys(self):
         for i in self.finished:
             i.add_key_possibilities()
-        self.keys = []
+        self.keys_list = []
         for i in self.finished:
             for e in i.key_possibilities:
-                self.keys.append(e)
-        return self.keys
+                self.keys_list.append(e)
+        return self.keys_list
 
     @property
     def key(self):
-        keys = sorted(self.keys, key=lambda x: keys.count(x), reverse=True)
+        keys = sorted(self.keys, key=lambda x: self.keys.count(x), reverse=True)
         return keys[0]
