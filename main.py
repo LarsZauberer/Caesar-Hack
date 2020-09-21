@@ -22,6 +22,8 @@ parser.add_argument("-a", action="store",
                     help="Alphabet to work with")
 parser.add_argument("-m", action="store",
                     help="The alphabet ordered by the most commen letters")
+parser.add_argument("-g", action="store_true",
+                    help="Switches to graphic analyses")
 
 args = vars(parser.parse_args())
 
@@ -36,6 +38,8 @@ else:
                         filename="log.log", filemode="w")
 
 log = logging.getLogger()
+
+# Graphicsmode switch
 
 # Set Variables to args
 code = args["c"]
@@ -58,18 +62,34 @@ if many_char is None:
     log.debug(f"No common letters in arguments")
 log.debug(f"Finished giving values")
 
-# Hack the code
-ha = hack(code, alphabet, many_char)
+if args["g"]:
+    import matplotlib.pyplot as plt
+    log.debug(f"Switching to graphics mode")
+    ha = hack(code, alphabet, many_char)
+    ha.count_and_sort()
+    x, y = zip(*ha.sort_counts)
 
-# Showing the messages and keys
-keys = ha.run()
-for i in keys:
-    log.info(f"Keys found: {i}")
-    c_code = cc(code, i, alphabet)
-    msg = c_code.decrypt()
-    log.info(f"Message found: {msg}")
-    print(f"Message found: {msg}")
+    # Configuring the graphic
+    log.debug(f"Configuring the graphic")
+    plt.title('Letters used in the code')
+    plt.ylabel('How ofthen used')
+    plt.xlabel("Letters")
+    couleur = ['#000000', '#dbb243', '#2e42d3', '#e54fe3', '#f23434']
+    plt.bar(x, y, align='center', alpha=0.6, color=couleur)
+    plt.show()
+else:
+    # Hack the code
+    ha = hack(code, alphabet, many_char)
+
+    # Showing the messages and keys
+    keys = ha.run()
+    for i in keys:
+        log.info(f"Keys found: {i}")
+        c_code = cc(code, i, alphabet)
+        msg = c_code.decrypt()
+        log.info(f"Message found: {msg}")
+        print(f"Message found: {msg}")
 
 # Calculate time needed
-log.info(f"----------Took {time.time() - startTime} secs to complete----------")
-print(f"----------Took {time.time() - startTime} secs to complete----------")
+log.info(f"---------Took {time.time() - startTime} secs to complete---------")
+print(f"---------Took {time.time() - startTime} secs to complete---------")
