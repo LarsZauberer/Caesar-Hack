@@ -55,7 +55,23 @@ class caesar_hack:
 
     @property
     def key(self):
-        keys = sorted(self.keys,
-                      key=lambda x: self.keys.count(x),
-                      reverse=True)
-        return keys[0]
+        # keys = sorted(self.keys,
+        #               key=lambda x: self.keys.count(x),
+        #               reverse=True)
+        key = set({})
+        max_value = 0
+        keys = self.keys
+        for i in keys:
+            if keys.count(i) > max_value:
+                max_value = keys.count(i)
+        for i in keys:
+            if keys.count(i) == max_value:
+                key.add(i)
+        return key
+
+    def run(self):
+        self.count_and_sort()
+        self.add_letters()
+        while len(self.letters) != 0:
+            self.calc_most_used_possibilities()
+        return self.key

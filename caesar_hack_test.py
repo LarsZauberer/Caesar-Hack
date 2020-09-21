@@ -85,4 +85,4 @@ def test_key():
     ha.add_letters()
     ha.calc_most_used_possibilities()
     assert type(ha.keys[0]) == int
-    assert type(ha.key) == int
+    assert type(ha.key) == set
