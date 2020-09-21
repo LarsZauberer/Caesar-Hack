@@ -55,5 +55,7 @@ class caesar_hack:
 
     @property
     def key(self):
-        keys = sorted(self.keys, key=lambda x: self.keys.count(x), reverse=True)
+        keys = sorted(self.keys,
+                      key=lambda x: self.keys.count(x),
+                      reverse=True)
         return keys[0]
