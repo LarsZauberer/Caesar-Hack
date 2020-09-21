@@ -1,3 +1,7 @@
+import logging
+log = logging.getLogger("Letter")
+
+
 class letter:
     def __init__(self, char, hack):
         self.char = char
@@ -7,14 +11,14 @@ class letter:
 
     def add_possibilities(self, others):
         for i in range(others):
-            self.possibilities.append(hack.many_char[i])
+            self.possibilities.append(self.hack.many_char[i])
 
     def add_key_possibilities(self):
         for i in self.possibilities:
             dif = self.get_index(self.char) - self.get_index(i)
-            self.key_possibilities.append(dif % len(hack.alphabet))
+            self.key_possibilities.append(dif % len(self.hack.alphabet))
 
     def get_index(self, char):
-        for index, item in enumerate(hack.alphabet):
+        for index, item in enumerate(self.hack.alphabet):
             if item == char:
                 return index
