@@ -3,6 +3,16 @@ import logging
 
 class caesar_code:
     def __init__(self, msg: str, key: int, alphabet: str):
+        """Caesar Code Object
+
+        Args:
+            msg (str): Message (Decrypted or Encrypted)
+            key (int): Key to encrypt/decrypt the message
+            alphabet (str): The alphabet used
+
+        Raises:
+            e: AssertionError
+        """
         self.log = logging.getLogger("Caesar Verschieber")
         self.msg = msg
         self.key = key
@@ -25,6 +35,14 @@ class caesar_code:
             self.msg = msg.lower()
 
     def encrypt(self, key=1):
+        """Encrypts the message
+
+        Args:
+            key (int, optional): Decrypt or encrypt. Defaults to 1.
+
+        Returns:
+            str: Encrypted Message
+        """
         if key == 1:
             self.key = abs(self.key)
         else:
@@ -39,4 +57,9 @@ class caesar_code:
         return crypt.upper()
 
     def decrypt(self):
+        """Decrypts the message
+
+        Returns:
+            str: Decrypted message
+        """
         return self.encrypt(key=-1)
