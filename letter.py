@@ -1,7 +1,6 @@
 class letter:
-    def __init__(self, char, count, hack):
+    def __init__(self, char, hack):
         self.char = char
-        self.count = count
         self.hack = hack
         self.possibilities = []
         self.key_possibilities = []
